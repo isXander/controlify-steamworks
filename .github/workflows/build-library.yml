@@ -42,8 +42,7 @@ jobs:
       - name: Build libraries
         run: >-
           ./gradlew
-          :sdl-api:build
-          :sdl-backend-ffm:build
+          build
           --stacktrace
 
       - name: Upload library artifacts
