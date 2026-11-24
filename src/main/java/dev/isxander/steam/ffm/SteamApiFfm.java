@@ -119,7 +119,6 @@ public class SteamApiFfm implements SteamApi {
         String arch = System.getProperty("os.arch").toLowerCase(Locale.ROOT);
         boolean x64 = arch.equals("amd64") || arch.equals("x86_64");
         boolean arm64 = arch.equals("aarch64") || arch.equals("arm64");
-        boolean x86 = arch.equals("x86") || arch.matches("i[3-6]86");
 
         if (os.contains("win")) {
             if (x64) return "/win64/steam_api64.dll";
@@ -128,7 +127,6 @@ public class SteamApiFfm implements SteamApi {
         } else if (os.contains("linux")) {
             if (x64) return "/linux64/libsteam_api.so";
             if (arm64) return "/linuxarm64/libsteam_api.so";
-            if (x86) return "/linux32/libsteam_api.so";
         }
         throw new UnsupportedOperationException("Unsupported platform for Steam API: " + os + " / " + arch);
     }
