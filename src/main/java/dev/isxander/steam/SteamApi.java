@@ -10,4 +10,6 @@ public interface SteamApi {
     int k_ESteamAPIInitResult_VersionMismatch = 3;
 
     int SteamAPI_InitFlat(String[] pOutErrMsg);
+
+    boolean SteamAPI_IsSteamRunning();
 }

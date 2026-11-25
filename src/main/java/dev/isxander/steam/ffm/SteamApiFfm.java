@@ -46,6 +46,12 @@ public class SteamApiFfm implements SteamApi {
                 LOOKUP.findOrThrow("SteamAPI_InitFlat"),
                 FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS)
         );
+
+        /// `bool SteamAPI_IsSteamRunning()`
+        private static final MethodHandle STEAMAPI_IS_STEAM_RUNNING = LINKER.downcallHandle(
+                LOOKUP.findOrThrow("SteamAPI_IsSteamRunning"),
+                FunctionDescriptor.of(ValueLayout.JAVA_BOOLEAN)
+        );
     }
 
     /// Process environment setter: `setenv` from libc, or `SetEnvironmentVariableW` from kernel32 on Windows.
@@ -92,6 +98,15 @@ public class SteamApiFfm implements SteamApi {
             return result;
         } catch (Throwable t) {
             throw new RuntimeException("Failed to invoke SteamAPI_InitFlat", t);
+        }
+    }
+
+    @Override
+    public boolean SteamAPI_IsSteamRunning() {
+        try {
+            return (boolean) Natives.STEAMAPI_IS_STEAM_RUNNING.invokeExact();
+        } catch (Throwable t) {
+            throw new RuntimeException("Failed to invoke SteamAPI_IsSteamRunning", t);
         }
     }
 
